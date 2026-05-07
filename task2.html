@@ -112,6 +112,10 @@
         </div>
     </div>
 
+    <button class="restore-btn" id="restoreBtn">
+        Відновити
+    </button>
+
     <div class="modal" id="modal">
     <span class="close-btn" id="closeBtn">
         X
@@ -161,6 +165,12 @@
                 JSON.stringify(deleted)
             );
         });
+    });
+
+    const restoreBtn = document.getElementById('restoreBtn');
+    restoreBtn.addEventListener('click', () => {
+        localStorage.removeItem('deletedImages');
+        location.reload();
     });
 </script>
 </body>
