@@ -146,6 +146,22 @@
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
+
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const card = button.parentElement;
+            const id = card.dataset.id;
+            card.remove();
+            let deleted =
+                JSON.parse(localStorage.getItem('deletedImages')) || [];
+            deleted.push(id);
+            localStorage.setItem(
+                'deletedImages',
+                JSON.stringify(deleted)
+            );
+        });
+    });
 </script>
 </body>
 </html>
