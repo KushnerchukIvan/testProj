@@ -68,6 +68,23 @@
             height: 100%;
             background: red;
         }
+        .czech{
+            height: 200px;
+            background: linear-gradient(to bottom, white 50%, red 50%);
+            overflow: hidden;
+            border: 1px solid black;
+        }
+        .czech::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-left: 150px solid blue;
+        }
     </style>
 </head>
 <body>
@@ -79,5 +96,6 @@
         <div class="red-horizontal"></div>
         <div class="red-vertical"></div>
     </div>
+    <div class="flag czech"></div>
 </body>
 </html>
