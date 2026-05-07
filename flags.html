@@ -35,10 +35,49 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        .iceland{
+            height: 216px;
+            background: blue;
+            overflow: hidden;
+        }
+        .iceland .white-horizontal{
+            position: absolute;
+            top: 90px;
+            width: 100%;
+            height: 36px;
+            background: white;
+        }
+        .iceland .white-vertical{
+            position: absolute;
+            left: 84px;
+            width: 36px;
+            height: 100%;
+            background: white;
+        }
+        .iceland .red-horizontal{
+            position: absolute;
+            top: 99px;
+            width: 100%;
+            height: 18px;
+            background: red;
+        }
+        .iceland .red-vertical{
+            position: absolute;
+            left: 93px;
+            width: 18px;
+            height: 100%;
+            background: red;
+        }
     </style>
 </head>
 <body>
     <div class="flag ukraine"></div>
     <div class="flag japan"></div>
+    <div class="flag iceland">
+        <div class="white-horizontal"></div>
+        <div class="white-vertical"></div>
+        <div class="red-horizontal"></div>
+        <div class="red-vertical"></div>
+    </div>
 </body>
 </html>
