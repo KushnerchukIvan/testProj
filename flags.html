@@ -19,9 +19,26 @@
             height: 200px;
             background: linear-gradient(to bottom, blue 50%, yellow 50%);
         }
+        .japan{
+            height: 200px;
+            background: white;
+            border: 1px solid black;
+        }
+        .japan::before{
+            content: "";
+            width: 120px;
+            height: 120px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body>
     <div class="flag ukraine"></div>
+    <div class="flag japan"></div>
 </body>
 </html>
