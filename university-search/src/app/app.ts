@@ -1,7 +1,9 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UnivercityService } from './services/univercity-service';
 import { UnivercityInterface } from './interfaces/univercity-interface';
+
+const STORAGE_KEY = 'uni_search_state';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,7 @@ import { UnivercityInterface } from './interfaces/univercity-interface';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit{
   private readonly univercityService = inject(UnivercityService);
 
   searchQuery = signal('');
@@ -21,6 +23,34 @@ export class App {
   savedCount = computed(() => 
     this.universities().filter(u => u.saved).length
   );
+
+  constructor() {
+    effect(() => {
+      if (!this.hasSearched()) return;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        searchQuery: this.searchQuery(),
+        universities: this.universities(),
+      }));
+    });
+  }
+
+  ngOnInit(){
+    this.loadState();
+  }
+
+  private loadState(): void {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+
+    try {
+      const state = JSON.parse(raw);
+      this.searchQuery.set(state.searchQuery ?? '');
+      this.universities.set(state.universities ?? []);
+      this.hasSearched.set(this.universities().length > 0);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }
 
   onSubmit(){
     const query = this.searchQuery().trim();
@@ -55,5 +85,6 @@ export class App {
     this.universities.set([]);
     this.hasSearched.set(false);
     this.errorMessage.set('');
+    localStorage.removeItem(STORAGE_KEY);
   }
 }
