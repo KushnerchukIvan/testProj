@@ -1,5 +1,10 @@
 <div class="container">
   <h1>Пошук університетів</h1>
+  @if (savedCount() > 0) {
+    <div class="counter">
+      Збережено в мій список: <strong>{{ savedCount() }}</strong>
+    </div>
+  }
   <div class="search-form">
     <input 
     type="text"
@@ -35,7 +40,7 @@
             <th>Код</th>
             <th>Штат / Провінція</th>
             <th>Домен</th>
-            <th>Веб-сайти</th>
+            <th>Мій список</th>
           </tr>
         </thead>
         <tbody>
@@ -49,9 +54,14 @@
               <td>{{ uni.domains.join(', ') }}</td>
               <td>
                 @for (url of uni.web_pages; track url) {
-                  <a [href]="url" target="_blank" rel="noopener noreferrer">
-                    {{ url }}
-                  </a>
+                  <label>
+                    <input
+                    type="checkbox"
+                    [checked]="uni.saved"
+                    (change)="toggleSave(i)"
+                    />
+                    Зберегти
+                  </label>
                 }
               </td>
             </tr>

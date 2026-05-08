@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UnivercityService } from './services/univercity-service';
 import { UnivercityInterface } from './interfaces/univercity-interface';
@@ -17,6 +17,10 @@ export class App {
   isLoading = signal(false);
   errorMessage = signal('');
   hasSearched = signal(false);
+
+  savedCount = computed(() => 
+    this.universities().filter(u => u.saved).length
+  );
 
   onSubmit(){
     const query = this.searchQuery().trim();
@@ -37,6 +41,13 @@ export class App {
         this.isLoading.set(false);
       }
     });
+  }
+
+  toggleSave(index: number){
+    this.universities.update(list =>
+      list.map((uni, i) => 
+      i === index ? {...uni, saved: !uni.saved} : uni)
+    );
   }
 
   onReset(){
